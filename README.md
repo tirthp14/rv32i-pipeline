@@ -2,11 +2,11 @@
 
 By: **Tirth Patel**
 
-![ISA](https://img.shields.io/badge/ISA-RISC--V-283272?logo=riscv&logoColor=white)
-![HDL](https://img.shields.io/badge/HDL-SystemVerilog-orange)
-![Platform](https://img.shields.io/badge/Platform-FPGA-7B1FA2)
-![Toolchain](https://img.shields.io/badge/Toolchain-Vivado-blue)
-![License](https://img.shields.io/badge/License-MIT-lightgrey)
+![ISA](https://img.shields.io/badge/ISA-RISC--V-blue)
+![RTL](https://img.shields.io/badge/RTL-SystemVerilog-orange)
+![Simulation](https://img.shields.io/badge/Simulation-Verilator-green)
+![Waveforms](https://img.shields.io/badge/Waveforms-GTKWave-purple)
+![Target](https://img.shields.io/badge/Target-FPGA-red)
 
 A fully functional 5-stage pipelined RISC-V processor (RV32I) implemented in SystemVerilog, supporting all 37 base integer instructions with data forwarding and hazard detection.
 
