@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches: ["*"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  lint:
+    name: Lint RTL
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Verilator
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y verilator
+
+      - name: Lint all RTL files
+        run: |
+          verilator --lint-only --Wall \
+            -sv \
+            --top-module top \
+            rtl/pkg/rv32i_pkg.sv \
+            rtl/core/*.sv
+
+  simulate:
+    name: Run testbenches
+    runs-on: ubuntu-latest
+    needs: lint          # only simulate if lint passes
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y verilator g++ make
+
+      - name: Build and run tb_alu
+        run: |
+          verilator --binary -sv --top-module tb_alu \
+            rtl/pkg/rv32i_pkg.sv rtl/core/alu.sv tb/tb_alu.sv \
+            -o sim_alu
+          ./obj_dir/sim_alu
+
+      - name: Build and run tb_reg_file
+        run: |
+          verilator --binary -sv --top-module tb_reg_file \
+            rtl/pkg/rv32i_pkg.sv rtl/core/reg_file.sv tb/tb_reg_file.sv \
+            -o sim_regfile
+          ./obj_dir/sim_regfile
+
+      - name: Build and run tb_top (full pipeline)
+        run: |
+          verilator --binary -sv --top-module tb_top \
+            rtl/pkg/rv32i_pkg.sv \
+            rtl/core/*.sv \
+            tb/tb_top.sv \
+            -o sim_top
+          ./obj_dir/sim_top
+
+      - name: Upload simulation logs
+        if: always()          # upload even if tests fail
+        uses: actions/upload-artifact@v4
+        with:
+          name: sim-logs
+          path: "*.log"
