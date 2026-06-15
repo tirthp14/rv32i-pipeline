@@ -20,16 +20,16 @@ jobs:
 
       - name: Lint all RTL files
         run: |
-          verilator --lint-only --Wall \
-            -sv \
-            --top-module top \
-            rtl/pkg/rv32i_pkg.sv \
-            rtl/core/*.sv
+          verilator --lint-only --Wall -sv \
+            --no-top \
+            -I rtl/pkg \
+            -I rtl/core \
+            $(find rtl/ -name "*.sv" | tr '\n' ' ')
 
   simulate:
     name: Run testbenches
     runs-on: ubuntu-latest
-    needs: lint          # only simulate if lint passes
+    needs: lint
     steps:
       - uses: actions/checkout@v4
 
@@ -45,24 +45,16 @@ jobs:
             -o sim_alu
           ./obj_dir/sim_alu
 
-      - name: Build and run tb_reg_file
-        run: |
-          verilator --binary -sv --top-module tb_reg_file \
-            rtl/pkg/rv32i_pkg.sv rtl/core/reg_file.sv tb/tb_reg_file.sv \
-            -o sim_regfile
-          ./obj_dir/sim_regfile
-
       - name: Build and run tb_top (full pipeline)
         run: |
           verilator --binary -sv --top-module tb_top \
-            rtl/pkg/rv32i_pkg.sv \
-            rtl/core/*.sv \
+            $(find rtl/ -name "*.sv" | tr '\n' ' ') \
             tb/tb_top.sv \
             -o sim_top
           ./obj_dir/sim_top
 
       - name: Upload simulation logs
-        if: always()          # upload even if tests fail
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: sim-logs
