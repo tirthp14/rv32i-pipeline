@@ -7,7 +7,7 @@ By: **Tirth Patel**
 ![Simulation](https://img.shields.io/badge/Simulation-Verilator-green)
 ![Waveforms](https://img.shields.io/badge/Waveforms-GTKWave-purple)
 ![Target](https://img.shields.io/badge/Target-FPGA-red)
-![CI](https://github.com/YOUR_USERNAME/YOUR_REPO/actions/workflows/ci.yml/badge.svg)
+![CI](https://github.com/tirthp14/rv32i-pipeline/actions/workflows/ci.yml/badge.svg)
 
 A fully functional 5-stage pipelined RISC-V processor (RV32I) implemented in SystemVerilog, supporting all 37 base integer instructions with data forwarding and hazard detection.
 
