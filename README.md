@@ -7,10 +7,9 @@ By: **Tirth Patel**
 ![Simulation](https://img.shields.io/badge/Simulation-Verilator-green)
 ![Waveforms](https://img.shields.io/badge/Waveforms-GTKWave-purple)
 ![Target](https://img.shields.io/badge/Target-FPGA-red)
+![CI](https://github.com/tirthp14/rv32i-pipeline/actions/workflows/ci.yml/badge.svg)
 
 A fully functional 5-stage pipelined RISC-V processor (RV32I) implemented in SystemVerilog, supporting all 37 base integer instructions with data forwarding and hazard detection.
-
-![CI](https://github.com/tirthp14/rv32i-pipeline/actions/workflows/ci.yml/badge.svg)
 
 ## Features
 
@@ -20,6 +19,15 @@ A fully functional 5-stage pipelined RISC-V processor (RV32I) implemented in Sys
 - Load-use hazard detection and stall insertion
 - Control hazard handling with 2-cycle branch flush
 - Verified against the RISC-V compliance test suite
+
+## Status
+- [x] Repo structure and CI pipeline
+- [ ] Single-cycle baseline (all 37 instructions)
+- [ ] Pipeline registers
+- [ ] Data forwarding unit
+- [ ] Hazard detection and stalls
+- [ ] Branch flush logic
+- [ ] RISC-V compliance test suite
 
 ## Running locally
 
@@ -44,7 +52,7 @@ rv32i-pipeline/
 ├── .github/
 │   ├── workflows/
 │   │   ├── ci.yml                       <- lint + simulate on every push/PR
-│   └── PULL_REQUEST_TEMPLATE.md
+│   └── pr-template.md
 ├── rtl/
 │   ├── core/
 │   │   ├── fetch.sv
@@ -72,11 +80,6 @@ rv32i-pipeline/
 │       ├── hazard_test.hex
 │       ├── branch_test.hex
 │       └── load_store.hex
-├── docs/
-│   ├── architecture.md                  <- your design decisions
-│   ├── hazards.md
-│   └── diagrams/
-│       └── datapath.png
 ├── scripts/
 │   ├── compile_test.sh                  <- compile C → .hex with riscv-gcc
 │   └── run_sim.sh
