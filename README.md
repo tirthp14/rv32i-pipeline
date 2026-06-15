@@ -49,10 +49,12 @@ make sim-alu
 ## Repository Structure (General Idea)
 ```
 rv32i-pipeline/
+│
 ├── .github/
 │   ├── workflows/
 │   │   ├── ci.yml                       <- lint + simulate on every push/PR
 │   └── pr-template.md
+│
 ├── rtl/
 │   ├── core/
 │   │   ├── fetch.sv
@@ -71,6 +73,7 @@ rv32i-pipeline/
 │   │   └── top.sv
 │   └── pkg/
 │       └── rv32i_pkg.sv                 <- shared typedefs, opcodes, enums
+│
 ├── tb/
 │   ├── tb_top.sv                        <- main testbench
 │   ├── tb_alu.sv                        <- unit test for ALU
@@ -80,9 +83,11 @@ rv32i-pipeline/
 │       ├── hazard_test.hex
 │       ├── branch_test.hex
 │       └── load_store.hex
+│
 ├── scripts/
 │   ├── compile_test.sh                  <- compile C → .hex with riscv-gcc
 │   └── run_sim.sh
+│
 ├── Makefile
 ├── README.md
 └── .verilator_lint                      <- lint config
