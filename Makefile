@@ -3,7 +3,9 @@ SV_FILES = rtl/pkg/rv32i_pkg.sv $(wildcard rtl/core/*.sv)
 .PHONY: lint sim-alu sim-top clean
 
 lint:
-	verilator --lint-only --Wall -sv --top-module top $(SV_FILES)
+	verilator --lint-only --Wall -sv -Wno-MULTITOP \
+		-I rtl/pkg -I rtl/core \
+		$(SV_FILES)
 
 sim-alu:
 	verilator --binary -sv --top-module tb_alu \
