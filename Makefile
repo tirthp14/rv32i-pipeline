@@ -8,12 +8,12 @@ lint:
 		$(SV_FILES)
 
 sim-alu:
-	verilator --binary -sv --top-module tb_alu \
+	verilator --binary -sv --timing --top-module tb_alu \
 		rtl/pkg/rv32i_pkg.sv rtl/core/alu.sv tb/tb_alu.sv -o sim_alu
 	./obj_dir/sim_alu
 
 sim-top-build:
-	verilator --binary -sv --top-module tb_top \
+	verilator --binary -sv --timing --top-module tb_top \
 		$(SV_FILES) tb/tb_top.sv -o sim_top
 
 sim-top: sim-top-build
