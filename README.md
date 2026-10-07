@@ -46,7 +46,7 @@ make sim-alu
 
 ---
 
-## Repository Structure (General Idea)
+## Repository Structure
 ```
 rv32i-pipeline/
 │
@@ -76,7 +76,10 @@ rv32i-pipeline/
 │
 ├── tb/
 │   ├── tb_top.sv                        <- main testbench
-│   ├── tb_alu.sv                        <- unit test for ALU
+│   ├── tb_alu.sv                        <- unit
+│   ├── tb_top.sv
+│   ├── tb_imm_gen.sv
+test for ALU
 │   ├── tb_reg_file.sv
 │   └── programs/
 │       ├── alu_ops.hex
