@@ -19,12 +19,7 @@ jobs:
           sudo apt-get install -y verilator
 
       - name: Lint all RTL files
-        run: |
-          verilator --lint-only --Wall -sv \
-            --no-top \
-            -I rtl/pkg \
-            -I rtl/core \
-            $(find rtl/ -name "*.sv" | tr '\n' ' ')
+        run: make lint
 
   simulate:
     name: Run testbenches
@@ -36,22 +31,13 @@ jobs:
       - name: Install dependencies
         run: |
           sudo apt-get update -qq
-          sudo apt-get install -y verilator g++ make
+          sudo apt-get install -y verilator g++ make z3
 
-      - name: Build and run tb_alu
-        run: |
-          verilator --binary -sv --top-module tb_alu \
-            rtl/pkg/rv32i_pkg.sv rtl/core/alu.sv tb/tb_alu.sv \
-            -o sim_alu
-          ./obj_dir/sim_alu
+      - name: Run ALU testbench
+        run: make sim-alu
 
-      - name: Build and run tb_top (full pipeline)
-        run: |
-          verilator --binary -sv --top-module tb_top \
-            $(find rtl/ -name "*.sv" | tr '\n' ' ') \
-            tb/tb_top.sv \
-            -o sim_top
-          ./obj_dir/sim_top
+      - name: Run register file testbench
+        run: make sim-regfile
 
       - name: Upload simulation logs
         if: always()
