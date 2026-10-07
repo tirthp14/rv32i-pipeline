@@ -22,8 +22,8 @@ A fully functional 5-stage pipelined RISC-V processor (RV32I) implemented in Sys
 
 ## Status
 - [x] Repo structure and CI pipeline
-- [ ] Single-cycle baseline (all 37 instructions)
-- [ ] Pipeline registers
+- [x] Single-cycle baseline (all 37 instructions)
+- [x] Pipeline registers
 - [ ] Data forwarding unit
 - [ ] Hazard detection and stalls
 - [ ] Branch flush logic
